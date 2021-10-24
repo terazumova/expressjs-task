@@ -1,0 +1,44 @@
+.page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100vh;
+}
+
+.app {
+  padding: 0px 20px;
+
+  background-color: #F0F0F0;
+}
+
+.secret-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.secret-container__text {
+  background-color: #fff;
+
+  height: 200px;
+}
+
+.secret-container__text, .secret-container__button {
+  margin: 4px;
+
+  min-width: 400px;
+  max-width: 600px;
+}
+
+.secret {
+  padding: 20px;
+  border-radius: 3px;
+  box-shadow: 3px 3px #bfbaba;
+
+  background-color: rgb(151, 228, 224);
+}
+
+.secret:hover {
+  box-shadow: 5px 5px #bfbaba;
+}
