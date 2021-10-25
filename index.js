@@ -33,15 +33,28 @@ app.post('/', (req, res) => {
 app.get('/:id', (req, res) => {
   const id = req.params.id;
 
-  const destPath = path.resolve(process.cwd(), 'files', id);
-  const secretPath = path.resolve(destPath);
+  const secretPath = path.resolve(process.cwd(), 'files', id);
 
-  const fileData = fs.readFileSync(secretPath);
+  fs.readFile(secretPath, 'utf8' , (err, data) => {
+    if (err) {
+      res.send('The secret is gone :(');
+      return;
+    }
 
-  const indexFunction = pug.compileFile('templates/secret-text.pug');
-  const indexHtml = indexFunction({secret: fileData.toString()});
+    const fileData = data;
 
-  res.send(indexHtml);
+    const indexFunction = pug.compileFile('templates/secret-text.pug');
+    const indexHtml = indexFunction({secret: fileData.toString()});
+  
+    try {
+      fs.unlinkSync(secretPath)
+    } catch(err) {
+      console.error(err)
+    }
+
+    res.send(indexHtml);
+  })
+
 });
 
 app.listen(port, () => {
